@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageBlogPost</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .form-section form input[type="text"],
+        .form-section form label {
+            visibility: hidden;
+            visibility: collapse;
+        }
+
+        .form-section form input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .form-section form input[type="file"]::-webkit-file-upload-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section form input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-section h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-section h2 {
+            color: dimgray;
+            text-align: center;
+        }
+
+        .form-section img {
+            color: #fff;
+        }
+
+        .form-section .btn {
+            margin-top: 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .home-btn a{
+            font-size: 0.9rem;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1 0 25%;
+            padding: 10px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .delete-button {
+            background-color: #4f4e4e;
+            border: none;
+            margin: 3px;
+            padding: 3px;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #1c1c1c;
+        }
+
+        .image-info {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html'%}
+    <div class="container">
+        <div class="form-section">
+            <h1>ImageBlogPost</h1>
+            <h2>Welcome, {{ username }}</h2>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <div class="home-btn">
+                    <input type="submit" class="btn" value="Upload">
+                    <a href="/register" class="btn">Logout</a>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            {% for image in img %}
+            <div class="col">
+                <div class="card">
+                    <button class="delete-button">X</button>
+                    <a href="{{ image.photo.url }}" target="_blank">
+                        <img src="{{ image.photo.url }}" alt="" height="200px">
+                    </a>
+                    <div class="image-info">
+                        <small>{{ image.date }}</small>
+                        <small>{{ image.username }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

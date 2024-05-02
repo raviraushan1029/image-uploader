@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .reg-body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .reg-body .card {
+            width: 25rem;
+            height: auto;
+            background-color: #fff;
+            border-radius: 1rem;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .reg-body h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .reg-body p {
+            color: dimgray;
+            margin-bottom: 25px;
+        }
+
+        .reg-body .error-message {
+            color: red;
+        }
+
+        .reg-body form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .reg-body input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .reg-body input[type="submit"] {
+            width: 50%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .reg-body input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .reg-body a {
+            padding-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .reg-body a:hover {
+            text-decoration: underline;
+        }
+
+        .reg-body .success-message {
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html'%}
+    <div class="reg-body">
+        <div class="card">
+            <h1>Registration Page</h1>
+            {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <form action="" method="post">
+                {{form.as_p}}
+                {% csrf_token %}
+                <input type="submit" value="Submit">
+                <a href="/login">Already have an account? Login here</a>
+            </form>
+            {% if username %}
+            <div class="success-message">
+                <h2><strong>{{ username }}</strong> username successfully registered</h2>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
